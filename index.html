@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Interactive educational quiz website for 12-year-old students. Features timed questions across Science, Math, History, Geography, English, and General Knowledge topics.">
+    <meta name="keywords"
+        content="educational quiz, kids learning, interactive quiz, student assessment, educational games, STEM education">
+    <meta name="author" content="Your Name">
+    <meta property="og:title" content="Quiz Master - Educational Quiz for Students">
+    <meta property="og:description"
+        content="Test your knowledge with 20 timed questions across 6 educational topics. Perfect for 12-year-old students!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/quiz-website">
+    <title>Quiz Master - Interactive Educational Quiz for Students</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+        <div class="container">
+            <div class="header">
+                <h1 class="title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Quiz Master
+                    <i class="fas fa-star"></i>
+                </h1>
+                <p class="subtitle">Test your knowledge and have fun learning!</p>
+            </div>
+
+            <div class="topic-selection">
+                <h2>Choose Your Adventure:</h2>
+                <div class="topics-grid">
+                    <div class="topic-card" data-topic="science">
+                        <i class="fas fa-flask"></i>
+                        <h3>Science</h3>
+                        <p>Explore the wonders of science!</p>
+                    </div>
+                    <div class="topic-card" data-topic="math">
+                        <i class="fas fa-calculator"></i>
+                        <h3>Mathematics</h3>
+                        <p>Numbers and problem solving!</p>
+                    </div>
+                    <div class="topic-card" data-topic="history">
+                        <i class="fas fa-monument"></i>
+                        <h3>History</h3>
+                        <p>Journey through time!</p>
+                    </div>
+                    <div class="topic-card" data-topic="geography">
+                        <i class="fas fa-globe"></i>
+                        <h3>Geography</h3>
+                        <p>Discover our amazing world!</p>
+                    </div>
+                    <div class="topic-card" data-topic="english">
+                        <i class="fas fa-book"></i>
+                        <h3>English</h3>
+                        <p>Language and literature!</p>
+                    </div>
+                    <div class="topic-card" data-topic="general">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>General Knowledge</h3>
+                        <p>A bit of everything!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="screen">
+        <div class="container">
+            <div class="quiz-header">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <span class="progress-text" id="progress-text">Question 1 of 20</span>
+                </div>
+                <div class="timer-container">
+                    <div class="timer" id="timer">45</div>
+                    <div class="timer-bar">
+                        <div class="timer-fill" id="timer-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <h2 class="question" id="question">Loading question...</h2>
+                <div class="answers" id="answers">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="quiz-controls">
+                <button id="next-btn" class="btn btn-primary" disabled>
+                    Next Question <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="screen">
+        <div class="container">
+            <div class="results-container">
+                <div class="score-display">
+                    <i class="fas fa-trophy"></i>
+                    <h1>Quiz Complete!</h1>
+                    <div class="score-circle">
+                        <span class="score-number" id="final-score">0</span>
+                        <span class="score-total">/ 20</span>
+                    </div>
+                    <div class="score-percentage" id="score-percentage">0%</div>
+                </div>
+
+                <div class="performance-message" id="performance-message">
+                    <!-- Performance message will be populated by JavaScript -->
+                </div>
+
+                <div class="score-breakdown">
+                    <div class="breakdown-item correct">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Correct: <span id="correct-count">0</span></span>
+                    </div>
+                    <div class="breakdown-item incorrect">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Incorrect: <span id="incorrect-count">0</span></span>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button id="review-btn" class="btn btn-secondary">
+                        <i class="fas fa-eye"></i> Review Answers
+                    </button>
+                    <button id="restart-btn" class="btn btn-primary">
+                        <i class="fas fa-redo"></i> Try Again
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Screen -->
+    <div id="review-screen" class="screen">
+        <div class="container">
+            <div class="review-header">
+                <h2><i class="fas fa-eye"></i> Review Your Answers</h2>
+                <button id="back-to-results" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Results
+                </button>
+            </div>
+            <div class="review-content" id="review-content">
+                <!-- Review content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="question-manager.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

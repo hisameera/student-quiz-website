@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Debug Test</title>
+</head>
+
+<body>
+    <h1>Quiz Debug Test</h1>
+    <button onclick="testQuestions()">Test Science Questions</button>
+    <div id="output"></div>
+
+    <script src="questions.js"></script>
+    <script>
+        function testQuestions() {
+            const output = document.getElementById('output');
+
+            // Test 1: Check if quizQuestions exists
+            console.log('quizQuestions exists:', typeof quizQuestions !== 'undefined');
+            output.innerHTML += '<p>quizQuestions exists: ' + (typeof quizQuestions !== 'undefined') + '</p>';
+
+            // Test 2: Check available topics
+            if (typeof quizQuestions !== 'undefined') {
+                const topics = Object.keys(quizQuestions);
+                console.log('Available topics:', topics);
+                output.innerHTML += '<p>Available topics: ' + topics.join(', ') + '</p>';
+
+                // Test 3: Check science questions count
+                const scienceCount = quizQuestions.science ? quizQuestions.science.length : 0;
+                console.log('Science questions count:', scienceCount);
+                output.innerHTML += '<p>Science questions count: ' + scienceCount + '</p>';
+
+                // Test 4: Test getRandomQuestions function
+                getRandomQuestions('science', 5).then(questions => {
+                    console.log('Random questions received:', questions.length);
+                    output.innerHTML += '<p>Random questions received: ' + questions.length + '</p>';
+                    if (questions.length > 0) {
+                        output.innerHTML += '<p>First question: ' + questions[0].question + '</p>';
+                    }
+                }).catch(error => {
+                    console.error('Error getting questions:', error);
+                    output.innerHTML += '<p>Error: ' + error.message + '</p>';
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

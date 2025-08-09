@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Question Count Check</title>
+</head>
+
+<body>
+    <h1>Question Count Analysis</h1>
+    <div id="results"></div>
+
+    <script src="questions.js"></script>
+    <script src="question-manager.js"></script>
+    <script>
+        const manager = new QuestionManager();
+        const stats = manager.getDetailedStats();
+
+        const resultsDiv = document.getElementById('results');
+
+        let html = '<h2>Current Question Counts:</h2>';
+        Object.keys(stats).forEach(topic => {
+            if (topic !== 'overall') {
+                html += `<p><strong>${topic.charAt(0).toUpperCase() + topic.slice(1)}:</strong> ${stats[topic].count} questions</p>`;
+            }
+        });
+
+        html += '<h2>Overall Statistics:</h2>';
+        html += `<p>Total: ${stats.overall.totalQuestions} questions</p>`;
+        html += `<p>Average per topic: ${stats.overall.averagePerTopic}</p>`;
+
+        resultsDiv.innerHTML = html;
+
+        // Also log to console for easy viewing
+        console.log('Question counts:');
+        Object.keys(quizQuestions).forEach(topic => {
+            console.log(`${topic}: ${quizQuestions[topic].length}`);
+        });
+    </script>
+</body>
+
+</html>
