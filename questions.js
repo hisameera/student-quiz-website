@@ -7,6 +7,16 @@ const quizQuestions = {
             correct: 1
         },
         {
+            question: "Which Indian scientist discovered the Raman Effect?",
+            options: ["C.V. Raman", "A.P.J. Abdul Kalam", "Homi Bhabha", "Jagadish Chandra Bose"],
+            correct: 0
+        },
+        {
+            question: "What is the national flower of India?",
+            options: ["Rose", "Jasmine", "Lotus", "Marigold"],
+            correct: 2
+        },
+        {
             question: "What gas do plants absorb from the air during photosynthesis?",
             options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
             correct: 2
@@ -505,6 +515,16 @@ const quizQuestions = {
         }
     ],
     math: [
+        {
+            question: "If you buy 3 samosas for ₹30, how much does one samosa cost?",
+            options: ["₹8", "₹10", "₹12", "₹15"],
+            correct: 1
+        },
+        {
+            question: "If a cricket match starts at 2:30 PM and lasts 3 hours, when does it end?",
+            options: ["5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM"],
+            correct: 1
+        },
         {
             question: "What is 15 × 8?",
             options: ["110", "120", "130", "140"],
@@ -1010,14 +1030,34 @@ const quizQuestions = {
     ],
     history: [
         {
+            question: "In which year did India gain independence?",
+            options: ["1946", "1947", "1948", "1949"],
+            correct: 1
+        },
+        {
+            question: "Who was the first Prime Minister of India?",
+            options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Sardar Patel", "Dr. Rajendra Prasad"],
+            correct: 1
+        },
+        {
+            question: "Who is known as the Father of the Nation in India?",
+            options: ["Jawaharlal Nehru", "Subhas Chandra Bose", "Mahatma Gandhi", "Bhagat Singh"],
+            correct: 2
+        },
+        {
+            question: "Which Mughal emperor built the Taj Mahal?",
+            options: ["Akbar", "Shah Jahan", "Humayun", "Aurangzeb"],
+            correct: 1
+        },
+        {
             question: "In which year did World War II end?",
             options: ["1944", "1945", "1946", "1947"],
             correct: 1
         },
         {
-            question: "Who was the first President of the United States?",
-            options: ["Thomas Jefferson", "John Adams", "George Washington", "Benjamin Franklin"],
-            correct: 2
+            question: "Who led the Dandi March?",
+            options: ["Jawaharlal Nehru", "Mahatma Gandhi", "Sardar Patel", "Subhas Chandra Bose"],
+            correct: 1
         },
         {
             question: "Which ancient wonder of the world was located in Egypt?",
@@ -1513,6 +1553,21 @@ const quizQuestions = {
     ],
     geography: [
         {
+            question: "What is the capital of India?",
+            options: ["Mumbai", "New Delhi", "Kolkata", "Chennai"],
+            correct: 1
+        },
+        {
+            question: "Which is the longest river in India?",
+            options: ["Yamuna", "Ganga", "Brahmaputra", "Godavari"],
+            correct: 1
+        },
+        {
+            question: "How many states are there in India?",
+            options: ["27", "28", "29", "30"],
+            correct: 1
+        },
+        {
             question: "What is the largest continent?",
             options: ["Africa", "Asia", "North America", "Europe"],
             correct: 1
@@ -1523,9 +1578,9 @@ const quizQuestions = {
             correct: 1
         },
         {
-            question: "What is the capital of Australia?",
-            options: ["Sydney", "Melbourne", "Canberra", "Perth"],
-            correct: 2
+            question: "What is the southernmost tip of India called?",
+            options: ["Cape Comorin", "Kanyakumari", "Point Calimere", "Rameshwaram"],
+            correct: 1
         },
         {
             question: "Which mountain range contains Mount Everest?",
@@ -2518,6 +2573,31 @@ const quizQuestions = {
         }
     ],
     general: [
+        {
+            question: "How many colors are in the Indian flag?",
+            options: ["2", "3", "4", "5"],
+            correct: 1
+        },
+        {
+            question: "What is the national animal of India?",
+            options: ["Lion", "Tiger", "Elephant", "Peacock"],
+            correct: 1
+        },
+        {
+            question: "What is the currency of India?",
+            options: ["Dollar", "Rupee", "Pound", "Euro"],
+            correct: 1
+        },
+        {
+            question: "Which Indian festival is called the Festival of Lights?",
+            options: ["Holi", "Diwali", "Eid", "Christmas"],
+            correct: 1
+        },
+        {
+            question: "In which city is the Red Fort located?",
+            options: ["Mumbai", "New Delhi", "Kolkata", "Agra"],
+            correct: 1
+        },
         {
             question: "How many colors are in a rainbow?",
             options: ["5", "6", "7", "8"],

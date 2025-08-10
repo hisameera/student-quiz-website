@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Shorts Question Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        select,
+        button {
+            padding: 12px 20px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+
+        .question-card {
+            background: #f8f9ff;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+        }
+
+        .question-text {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            padding: 12px 16px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .option.correct {
+            background: #48bb78;
+            color: white;
+            border-color: #38a169;
+        }
+
+        .video-script {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .script-section {
+            margin-bottom: 15px;
+        }
+
+        .script-time {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .script-text {
+            color: #90cdf4;
+        }
+
+        .topic-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .difficulty {
+            color: #718096;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            padding: 15px;
+            background: #edf2f7;
+            border-radius: 8px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #718096;
+        }
+
+        .copy-btn {
+            background: #48bb78;
+            font-size: 14px;
+            padding: 8px 16px;
+            margin-top: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #38a169;
+        }
+
+        @media (max-width: 600px) {
+            .controls {
+                flex-direction: column;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎬 YouTube Shorts Question Generator</h1>
+
+        <div class="controls">
+            <select id="topicSelect">
+                <option value="random">🎲 Random Topic</option>
+                <option value="science">🧪 Science</option>
+                <option value="math">🔢 Math</option>
+                <option value="history">📜 History</option>
+                <option value="geography">🌍 Geography</option>
+                <option value="english">📚 English</option>
+                <option value="general">🌟 General Knowledge</option>
+            </select>
+            <button id="generateBtn">Generate Question</button>
+            <button id="generateScriptBtn">Generate Video Script</button>
+        </div>
+
+        <div id="questionDisplay"></div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number" id="totalQuestions">600</div>
+                <div class="stat-label">Total Questions</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="questionsGenerated">0</div>
+                <div class="stat-label">Generated Today</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="topicsUsed">0</div>
+                <div class="stat-label">Topics Used</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script>
+        class YouTubeQuestionGenerator {
+            constructor() {
+                this.generatedCount = 0;
+                this.usedTopics = new Set();
+                this.currentQuestion = null;
+                this.initializeEventListeners();
+            }
+
+            initializeEventListeners() {
+                document.getElementById('generateBtn').addEventListener('click', () => {
+                    this.generateQuestion();
+                });
+
+                document.getElementById('generateScriptBtn').addEventListener('click', () => {
+                    this.generateVideoScript();
+                });
+            }
+
+            generateQuestion() {
+                const topicSelect = document.getElementById('topicSelect');
+                let selectedTopic = topicSelect.value;
+
+                if (selectedTopic === 'random') {
+                    const topics = Object.keys(quizQuestions);
+                    selectedTopic = topics[Math.floor(Math.random() * topics.length)];
+                }
+
+                const questions = quizQuestions[selectedTopic];
+                const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+
+                this.currentQuestion = {
+                    ...randomQuestion,
+                    topic: selectedTopic
+                };
+
+                this.displayQuestion();
+                this.updateStats(selectedTopic);
+            }
+
+            displayQuestion() {
+                const question = this.currentQuestion;
+                const display = document.getElementById('questionDisplay');
+
+                const topicEmojis = {
+                    science: '🧪',
+                    math: '🔢',
+                    history: '📜',
+                    geography: '🌍',
+                    english: '📚',
+                    general: '🌟'
+                };
+
+                display.innerHTML = `
+                    <div class="question-card">
+                        <div class="topic-badge">
+                            ${topicEmojis[question.topic]} ${question.topic.charAt(0).toUpperCase() + question.topic.slice(1)}
+                        </div>
+                        <div class="difficulty">Perfect for 12-year-olds</div>
+                        <div class="question-text">${question.question}</div>
+                        <div class="options">
+                            ${question.options.map((option, index) => `
+                                <div class="option ${index === question.correct ? 'correct' : ''}">${option}</div>
+                            `).join('')}
+                        </div>
+                        <button class="copy-btn" onclick="this.copyQuestionText()">📋 Copy Question</button>
+                    </div>
+                `;
+            }
+
+            generateVideoScript() {
+                if (!this.currentQuestion) {
+                    alert('Please generate a question first!');
+                    return;
+                }
+
+                const question = this.currentQuestion;
+                const correctAnswer = question.options[question.correct];
+
+                const script = `
+🎬 YOUTUBE SHORTS SCRIPT (60 seconds)
+
+⏰ 0-3 seconds: HOOK
+"Can you answer this 12-year-old quiz question?"
+
+⏰ 3-15 seconds: QUESTION
+"${question.question}"
+[Show options: ${question.options.join(', ')}]
+
+⏰ 15-25 seconds: COUNTDOWN
+"You have 10 seconds to think... 10, 9, 8, 7, 6, 5, 4, 3, 2, 1!"
+
+⏰ 25-35 seconds: ANSWER REVEAL
+"The correct answer is: ${correctAnswer}!"
+[Highlight correct option]
+
+⏰ 35-50 seconds: ENGAGEMENT
+"Did you get it right? Comment your answer below!"
+
+⏰ 50-60 seconds: CALL TO ACTION
+"Want more questions? Try 20 random questions at the link in my bio!"
+
+📱 HASHTAGS:
+#QuizChallenge #12YearOldQuiz #${question.topic.charAt(0).toUpperCase() + question.topic.slice(1)}Quiz #BrainTeaser #EducationTok
+
+🎨 VISUAL NOTES:
+- Use large, bold text for mobile viewing
+- Bright background colors
+- Smooth countdown animation
+- Highlight correct answer in green
+                `;
+
+                this.displayScript(script);
+            }
+
+            displayScript(script) {
+                const display = document.getElementById('questionDisplay');
+                display.innerHTML += `
+                    <div class="video-script">
+                        <pre>${script}</pre>
+                        <button class="copy-btn" onclick="navigator.clipboard.writeText(\`${script.replace(/`/g, '\\`')}\`)">📋 Copy Script</button>
+                    </div>
+                `;
+            }
+
+            updateStats(topic) {
+                this.generatedCount++;
+                this.usedTopics.add(topic);
+
+                document.getElementById('questionsGenerated').textContent = this.generatedCount;
+                document.getElementById('topicsUsed').textContent = this.usedTopics.size;
+            }
+
+            copyQuestionText() {
+                const question = this.currentQuestion;
+                const text = `${question.question}\n\nA) ${question.options[0]}\nB) ${question.options[1]}\nC) ${question.options[2]}\nD) ${question.options[3]}\n\nCorrect Answer: ${question.options[question.correct]}`;
+
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Question copied to clipboard!');
+                });
+            }
+        }
+
+        // Initialize the generator
+        const generator = new YouTubeQuestionGenerator();
+
+        // Generate first question automatically
+        generator.generateQuestion();
+    </script>
+</body>
+
+</html>
