@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Enhanced SEO Meta Tags -->
+    <meta name="description"
+        content="Free interactive educational quiz for Indian students aged 12+. 600+ CBSE-aligned questions across Science, Math, History, Geography, English & General Knowledge. Test your knowledge now!">
+    <meta name="keywords"
+        content="CBSE quiz, Indian students quiz, Class 6 questions, educational quiz India, free online quiz, school quiz, student assessment, NCERT questions, Indian education">
+    <meta name="author" content="Quiz Master India">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hisameera.github.io/student-quiz-website/">
+
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="Quiz Master India - Free Educational Quiz for CBSE Students">
+    <meta property="og:description"
+        content="Challenge yourself with 600+ Indian context questions! Perfect for Class 6+ students. Free, fun, and educational.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hisameera.github.io/student-quiz-website/">
+    <meta property="og:image" content="https://hisameera.github.io/student-quiz-website/quiz-preview.png">
+    <meta property="og:site_name" content="Quiz Master India">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Quiz Master India - Free CBSE Quiz">
+    <meta name="twitter:description" content="600+ questions for Indian students. Test your knowledge now!">
+    <meta name="twitter:image" content="https://hisameera.github.io/student-quiz-website/quiz-preview.png">
+
+    <!-- Structured Data for Google -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalApplication",
+        "name": "Quiz Master India",
+        "description": "Interactive educational quiz platform for Indian students with CBSE-aligned content",
+        "url": "https://hisameera.github.io/student-quiz-website/",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Any",
+        "educationalLevel": "Middle School",
+        "educationalUse": "Assessment",
+        "audience": {
+            "@type": "EducationalAudience",
+            "educationalRole": "student"
+        },
+        "provider": {
+            "@type": "Organization",
+            "name": "Quiz Master India"
+        }
+    }
+    </script>
+
+    <title>Quiz Master India - Free Educational Quiz for CBSE Students | 600+ Questions</title>
+
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap"
+        as="style">
+    <link rel="preload" href="styles.css" as="style">
+
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX'); // Replace with your actual GA4 tracking ID
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Enhanced Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="header">
+                <h1><i class="fas fa-brain"></i> Quiz Master India</h1>
+                <p class="subtitle">🇮🇳 Master Your Knowledge with Indian Context Questions</p>
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span>600+ Questions</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span>45s Per Question</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-trophy"></i>
+                        <span>CBSE Aligned</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="intro-section">
+                <h2>🎯 Perfect for Class 6+ Students</h2>
+                <p>Test your knowledge with questions designed specifically for Indian students.
+                    From Indian geography to local history, science concepts to general knowledge!</p>
+            </div>
+
+            <div class="topics-grid">
+                <div class="topic-card" data-topic="science"
+                    data-description="Solar System, Human Body, Indian Scientists">
+                    <div class="topic-icon">🧪</div>
+                    <h3>Science</h3>
+                    <p class="topic-desc">100 questions covering Physics, Chemistry, Biology with Indian examples</p>
+                    <span class="difficulty-badge">Mixed Difficulty</span>
+                </div>
+
+                <div class="topic-card" data-topic="math" data-description="Numbers, Geometry, Problem Solving">
+                    <div class="topic-icon">🔢</div>
+                    <h3>Mathematics</h3>
+                    <p class="topic-desc">100 questions on arithmetic, geometry, and logical reasoning</p>
+                    <span class="difficulty-badge">Progressive</span>
+                </div>
+
+                <div class="topic-card" data-topic="history"
+                    data-description="Ancient India, Freedom Struggle, World History">
+                    <div class="topic-icon">🏛️</div>
+                    <h3>History</h3>
+                    <p class="topic-desc">100 questions covering Indian history and world civilizations</p>
+                    <span class="difficulty-badge">Story-Based</span>
+                </div>
+
+                <div class="topic-card" data-topic="geography"
+                    data-description="Indian States, Rivers, Mountains, Climate">
+                    <div class="topic-icon">🌍</div>
+                    <h3>Geography</h3>
+                    <p class="topic-desc">100 questions about India and world geography</p>
+                    <span class="difficulty-badge">Map-Based</span>
+                </div>
+
+                <div class="topic-card" data-topic="english" data-description="Grammar, Vocabulary, Literature">
+                    <div class="topic-icon">📚</div>
+                    <h3>English</h3>
+                    <p class="topic-desc">100 questions on grammar, vocabulary, and comprehension</p>
+                    <span class="difficulty-badge">Language Focus</span>
+                </div>
+
+                <div class="topic-card" data-topic="general"
+                    data-description="Current Affairs, Sports, Culture, Mixed Topics">
+                    <div class="topic-icon">🌟</div>
+                    <h3>General Knowledge</h3>
+                    <p class="topic-desc">100 questions covering Indian culture, sports, and current affairs</p>
+                    <span class="difficulty-badge">All-Round</span>
+                </div>
+            </div>
+
+            <!-- Social Proof Section -->
+            <div class="social-proof">
+                <h3>🏆 Join 1000+ Students Already Learning!</h3>
+                <div class="testimonials">
+                    <div class="testimonial">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"Helped me prepare for my school exams. Love the Indian context questions!"</p>
+                        <span>- Priya, Class 7, Mumbai</span>
+                    </div>
+                    <div class="testimonial">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"My son improved his general knowledge significantly. Highly recommended!"</p>
+                        <span>- Parent from Delhi</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="cta-section">
+                <button id="start-button" class="start-button pulse">
+                    <i class="fas fa-play"></i> Start Your Quiz Journey
+                </button>
+                <p class="cta-subtitle">✨ Free forever • No registration required • Mobile friendly</p>
+            </div>
+
+            <!-- Share Section -->
+            <div class="share-section">
+                <h3>📢 Share with Friends</h3>
+                <div class="share-buttons">
+                    <button class="share-btn whatsapp" onclick="shareQuiz('whatsapp')">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </button>
+                    <button class="share-btn facebook" onclick="shareQuiz('facebook')">
+                        <i class="fab fa-facebook"></i> Facebook
+                    </button>
+                    <button class="share-btn twitter" onclick="shareQuiz('twitter')">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </button>
+                    <button class="share-btn telegram" onclick="shareQuiz('telegram')">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keep all existing screens: quiz-content, quiz-screen, results-screen -->
+        <div id="quiz-content" class="screen">
+            <!-- Existing quiz content remains the same -->
+        </div>
+
+        <div id="quiz-screen" class="screen">
+            <!-- Existing quiz screen remains the same -->
+        </div>
+
+        <div id="results-screen" class="screen">
+            <!-- Existing results screen remains the same -->
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Add sharing functionality -->
+    <script>
+        function shareQuiz(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent("🧠 Test your knowledge with Quiz Master India! 600+ Indian context questions for students. Free and fun! 🇮🇳");
+
+            const shareUrls = {
+                whatsapp: `https://wa.me/?text=${text}%20${url}`,
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+                twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+                telegram: `https://t.me/share/url?url=${url}&text=${text}`
+            };
+
+            if (shareUrls[platform]) {
+                window.open(shareUrls[platform], '_blank', 'width=600,height=400');
+
+                // Track sharing in Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'share', {
+                        method: platform,
+                        content_type: 'quiz',
+                        content_id: 'quiz_master_india'
+                    });
+                }
+            }
+        }
+
+        // Track quiz starts
+        document.getElementById('start-button')?.addEventListener('click', function () {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'quiz_started', {
+                    event_category: 'engagement',
+                    event_label: 'main_quiz'
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,408 @@
+/* Enhanced styles for improved user engagement and traffic */
+
+/* Stats Bar */
+.stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.stat-item i {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    color: #FFD700;
+}
+
+.stat-item span {
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+/* Enhanced Topic Cards */
+.topic-card {
+    position: relative;
+    background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
+    border-radius: 15px;
+    padding: 25px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.topic-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    transition: height 0.3s ease;
+}
+
+.topic-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    border-color: #667eea;
+}
+
+.topic-card:hover::before {
+    height: 100%;
+    opacity: 0.05;
+}
+
+.topic-desc {
+    font-size: 0.85em;
+    color: #666;
+    margin: 10px 0;
+    line-height: 1.4;
+}
+
+.difficulty-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    font-size: 0.7em;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+/* Social Proof Section */
+.social-proof {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 40px 0;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.social-proof h3 {
+    color: white;
+    margin-bottom: 25px;
+    font-size: 1.4em;
+}
+
+.testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.testimonial {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: left;
+    position: relative;
+}
+
+.testimonial i {
+    color: #667eea;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.testimonial p {
+    color: #333;
+    font-style: italic;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.testimonial span {
+    color: #666;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+/* Enhanced CTA Section */
+.cta-section {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.start-button {
+    background: linear-gradient(135deg, #FF6B35, #F7931E);
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    font-size: 1.2em;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.start-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255, 107, 53, 0.6);
+    background: linear-gradient(135deg, #F7931E, #FF6B35);
+}
+
+.start-button i {
+    margin-right: 10px;
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 8px 25px rgba(255, 107, 53, 0.8);
+    }
+
+    100% {
+        box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+    }
+}
+
+.cta-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+/* Share Section */
+.share-section {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.share-section h3 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.share-btn.whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+}
+
+.share-btn.facebook {
+    background: linear-gradient(135deg, #1877F2, #0866C6);
+}
+
+.share-btn.twitter {
+    background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+}
+
+.share-btn.telegram {
+    background: linear-gradient(135deg, #0088cc, #006bb3);
+}
+
+/* Enhanced Intro Section */
+.intro-section {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.intro-section h2 {
+    color: white;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.intro-section p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1em;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Enhanced Header */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2em;
+    margin: 10px 0;
+    font-weight: 400;
+}
+
+/* Mobile Responsive Enhancements */
+@media (max-width: 768px) {
+    .stats-bar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .stat-item {
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .testimonials {
+        grid-template-columns: 1fr;
+    }
+
+    .share-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .share-btn {
+        width: 200px;
+        justify-content: center;
+    }
+
+    .start-button {
+        padding: 15px 30px;
+        font-size: 1.1em;
+    }
+
+    .intro-section p {
+        font-size: 1em;
+    }
+}
+
+/* Loading Animation for Better UX */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(102, 126, 234, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Success Toast for sharing actions */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+/* SEO Enhancement: Better focus states for accessibility */
+.topic-card:focus,
+.start-button:focus,
+.share-btn:focus {
+    outline: 3px solid #FFD700;
+    outline-offset: 2px;
+}
+
+/* Performance: GPU acceleration for animations */
+.topic-card,
+.start-button,
+.share-btn {
+    will-change: transform;
+}
+
+/* Enhanced visual hierarchy */
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}

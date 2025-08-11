@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,7 +55,9 @@
             flex-wrap: wrap;
         }
 
-        select, button, input {
+        select,
+        button,
+        input {
             padding: 12px 20px;
             border: 2px solid #667eea;
             border-radius: 8px;
@@ -163,6 +166,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>🤖 AI YouTube Shorts Generator</h1>
@@ -200,19 +204,19 @@
                     <p>Generate natural Indian accent voiceover</p>
                     <a href="https://murf.ai" target="_blank">Try Murf.ai</a>
                 </div>
-                
+
                 <div class="tool-card">
                     <h4>🎬 AI Video Creation</h4>
                     <p>Create animated videos with text and visuals</p>
                     <a href="https://pictory.ai" target="_blank">Try Pictory.ai</a>
                 </div>
-                
+
                 <div class="tool-card">
                     <h4>🎨 AI Graphics</h4>
                     <p>Generate Indian-themed backgrounds</p>
                     <a href="https://canva.com/ai" target="_blank">Try Canva AI</a>
                 </div>
-                
+
                 <div class="tool-card">
                     <h4>✂️ AI Video Editing</h4>
                     <p>Automatic video editing and effects</p>
@@ -224,7 +228,7 @@
                     <p>Create videos entirely on your phone</p>
                     <a href="#" onclick="showMobileApps()">Show Apps</a>
                 </div>
-                
+
                 <div class="tool-card">
                     <h4>🎵 AI Music</h4>
                     <p>Generate copyright-free background music</p>
@@ -259,14 +263,14 @@
             const topic = document.getElementById('topicSelect').value;
             const scriptOutput = document.getElementById('scriptOutput');
             const copyBtn = document.getElementById('copyBtn');
-            
+
             // Get a random question from the selected topic
             const questions = quizQuestions[topic];
             const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
-            
+
             // Generate AI-ready script
             const script = createAIScript(randomQuestion, topic);
-            
+
             scriptOutput.innerHTML = script;
             copyBtn.style.display = 'inline-block';
             currentScript = script;
@@ -275,7 +279,7 @@
         function createAIScript(questionData, topic) {
             const topicEmojis = {
                 geography: '🌍',
-                history: '📜', 
+                history: '📜',
                 science: '🧪',
                 math: '🔢',
                 general: '🌟'
@@ -342,10 +346,10 @@ Thumbnail: Question text with Indian flag background`;
                 </div>
                 <div id="currentStep">Step 1: Opening Murf.ai for voice generation...</div>
             `;
-            
+
             // Simulate workflow progress
             simulateWorkflow();
-            
+
             // Open AI tools
             setTimeout(() => window.open('https://murf.ai', '_blank'), 1000);
             setTimeout(() => window.open('https://pictory.ai', '_blank'), 3000);
@@ -358,17 +362,17 @@ Thumbnail: Question text with Indian flag background`;
                 "Select Indian accent voice (recommended: Priya or Aditi)",
                 "Generate and download voice file",
                 "Opening Pictory.ai for video creation...",
-                "Upload your voice file to Pictory.ai", 
+                "Upload your voice file to Pictory.ai",
                 "Add Indian-themed visuals and text",
                 "Set video to vertical format (9:16)",
                 "Export your video",
                 "Ready to upload to YouTube!"
             ];
-            
+
             let currentStep = 0;
             const progressBar = document.getElementById('progressBar');
             const stepText = document.getElementById('currentStep');
-            
+
             const interval = setInterval(() => {
                 if (currentStep < steps.length) {
                     progressBar.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
@@ -384,7 +388,7 @@ Thumbnail: Question text with Indian flag background`;
         function showUploadGuide() {
             const uploadGuide = document.getElementById('uploadGuide');
             const uploadDetails = document.getElementById('uploadDetails');
-            
+
             uploadDetails.innerHTML = `
                 <h4>🎯 YouTube Upload Checklist:</h4>
                 <ul style="margin: 15px 0; padding-left: 20px;">
@@ -407,7 +411,7 @@ Thumbnail: Question text with Indian flag background`;
                     📤 Upload to YouTube Studio
                 </button>
             `;
-            
+
             uploadGuide.style.display = 'block';
         }
 
@@ -424,9 +428,10 @@ Download from App Store/Play Store`);
         }
 
         // Auto-generate a script on page load
-        window.onload = function() {
+        window.onload = function () {
             generateScript();
         };
     </script>
 </body>
+
 </html>
