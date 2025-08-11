@@ -457,17 +457,17 @@ document.head.appendChild(style);
 function shareQuiz(platform) {
     const url = encodeURIComponent(window.location.href);
     const text = encodeURIComponent("🧠 Test your knowledge with Quiz Master India! 600+ Indian context questions for students. Free and fun! 🇮🇳");
-    
+
     const shareUrls = {
         whatsapp: `https://wa.me/?text=${text}%20${url}`,
         facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
         twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
         telegram: `https://t.me/share/url?url=${url}&text=${text}`
     };
-    
+
     if (shareUrls[platform]) {
         window.open(shareUrls[platform], '_blank', 'width=600,height=400');
-        
+
         // Track sharing in Google Analytics
         if (typeof gtag !== 'undefined') {
             gtag('event', 'share', {
@@ -476,7 +476,7 @@ function shareQuiz(platform) {
                 content_id: 'quiz_master_india'
             });
         }
-        
+
         // Show success toast
         showToast(`Shared on ${platform.charAt(0).toUpperCase() + platform.slice(1)}! 🎉`);
     }
@@ -522,12 +522,12 @@ function showToast(message, type = 'success') {
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     toast.textContent = message;
-    
+
     document.body.appendChild(toast);
-    
+
     // Trigger animation
     setTimeout(() => toast.classList.add('show'), 100);
-    
+
     // Remove toast after 3 seconds
     setTimeout(() => {
         toast.classList.remove('show');
@@ -539,7 +539,7 @@ function showToast(message, type = 'success') {
 function trackPageLoad() {
     window.addEventListener('load', () => {
         const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-        
+
         if (typeof gtag !== 'undefined') {
             gtag('event', 'page_load_time', {
                 event_category: 'performance',
@@ -551,12 +551,12 @@ function trackPageLoad() {
 }
 
 // Initialize enhanced features
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     trackPageLoad();
-    
+
     // Add enhanced click tracking to topic cards
     document.querySelectorAll('.topic-card').forEach(card => {
-        card.addEventListener('click', function() {
+        card.addEventListener('click', function () {
             const topic = this.dataset.topic;
             trackQuizStart(topic);
         });
