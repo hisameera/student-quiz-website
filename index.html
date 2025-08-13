@@ -1,52 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5934DQ90B"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-Q5934DQ90B');
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Enhanced SEO Meta Tags -->
-    <meta name="description"
-        content="Free interactive educational quiz for Indian students aged 12+. 600+ CBSE-aligned questions across Science, Math, History, Geography, English & General Knowledge. Test your knowledge now!">
-    <meta name="keywords"
-        content="CBSE quiz, Indian students quiz, Class 6 questions, educational quiz India, free online quiz, school quiz, student assessment, NCERT questions, Indian education">
-    <meta name="author" content="Quiz Master India">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://hisameera.github.io/student-quiz-website/">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5934DQ90B"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-    <!-- Open Graph for Social Media -->
-    <meta property="og:title" content="Quiz Master India - Free Educational Quiz for CBSE Students">
-    <meta property="og:description"
-        content="Challenge yourself with 600+ Indian context questions! Perfect for Class 6+ students. Free, fun, and educational.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://hisameera.github.io/student-quiz-website/">
-    <meta property="og:image" content="https://hisameera.github.io/student-quiz-website/quiz-preview.png">
-    <meta property="og:site_name" content="Quiz Master India">
+    gtag('config', 'G-Q5934DQ90B', {
+        page_title: 'Quiz Master India - Homepage',
+        page_location: window.location.href
+    });
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Quiz Master India - Free CBSE Quiz">
-    <meta name="twitter:description" content="600+ questions for Indian students. Test your knowledge now!">
-    <meta name="twitter:image" content="https://hisameera.github.io/student-quiz-website/quiz-preview.png">
+    // Debug: Send a test event to verify tracking
+    gtag('event', 'page_view_test', {
+        event_category: 'test',
+        event_label: 'homepage_load',
+        debug_mode: true
+    });
 
-    <title>Quiz Master India - Free Educational Quiz for CBSE Students | 600+ Questions</title>
+    console.log('Google Analytics initialized with ID: G-Q5934DQ90B');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Enhanced SEO Meta Tags -->
+<meta name="description"
+    content="Free interactive educational quiz for Indian students aged 12+. 600+ CBSE-aligned questions across Science, Math, History, Geography, English & General Knowledge. Test your knowledge now!">
+<meta name="keywords"
+    content="CBSE quiz, Indian students quiz, Class 6 questions, educational quiz India, free online quiz, school quiz, student assessment, NCERT questions, Indian education">
+<meta name="author" content="Quiz Master India">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hisameera.github.io/student-quiz-website/">
+
+<!-- Open Graph for Social Media -->
+<meta property="og:title" content="Quiz Master India - Free Educational Quiz for CBSE Students">
+<meta property="og:description"
+    content="Challenge yourself with 600+ Indian context questions! Perfect for Class 6+ students. Free, fun, and educational.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hisameera.github.io/student-quiz-website/">
+<meta property="og:image" content="https://hisameera.github.io/student-quiz-website/quiz-preview.png">
+<meta property="og:site_name" content="Quiz Master India">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quiz Master India - Free CBSE Quiz">
+<meta name="twitter:description" content="600+ questions for Indian students. Test your knowledge now!">
+<meta name="twitter:image" content="https://hisameera.github.io/student-quiz-website/quiz-preview.png">
+
+<title>Quiz Master India - Free Educational Quiz for CBSE Students | 600+ Questions</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX'); // Replace with your actual GA4 tracking ID
-    </script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore-compat.js"></script><!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX'); // Replace with your actual GA4 tracking ID
+</script>
 </head>
 
 <body>
@@ -54,10 +70,24 @@
     <div id="welcome-screen" class="screen active">
         <div class="container">
             <div class="header">
+                <div class="user-section">
+                    <div id="user-info" class="user-info" style="display: none;">
+                        <span id="user-greeting">Welcome back, <span id="user-name"></span>!</span>
+                        <button id="logout-btn" class="auth-btn logout">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                    <div id="auth-section" class="auth-section">
+                        <button id="login-btn" class="auth-btn login">
+                            <i class="fas fa-user"></i> Login / Sign Up
+                        </button>
+                    </div>
+                </div>
+                
                 <h1><i class="fas fa-brain"></i> Quiz Master India</h1>
                 <p class="subtitle">
-                    <span class="indian-flag" title="India">🇮🇳</span>
-                    <span class="flag-fallback" style="display: none;">[IN]</span>
+                    <span class="indian-flag" title="India 🇮🇳" style="display: inline-block; font-size: 1.8em; margin: 0 8px; vertical-align: middle;">🇮🇳</span>
+                    <span class="flag-fallback" style="display: none; color: #ff6600; font-weight: bold; border: 2px solid #ff6600; padding: 2px 6px; border-radius: 3px;">[INDIA]</span>
                     Master Your Knowledge with Indian Context Questions
                 </p>
             </div>
@@ -75,6 +105,71 @@
                 <div class="stat-item">
                     <i class="fas fa-trophy"></i>
                     <span>CBSE Aligned</span>
+                </div>
+            </div>
+
+            <!-- User Dashboard (shows when logged in) -->
+            <div id="user-dashboard" class="user-dashboard" style="display: none;">
+                <h2>📊 Your Progress Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="dashboard-icon">🏆</div>
+                        <div class="dashboard-content">
+                            <h3 id="total-score">0</h3>
+                            <p>Total Score</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="dashboard-icon">📚</div>
+                        <div class="dashboard-content">
+                            <h3 id="quizzes-completed">0</h3>
+                            <p>Quizzes Completed</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="dashboard-icon">🎯</div>
+                        <div class="dashboard-content">
+                            <h3 id="average-score">0%</h3>
+                            <p>Average Score</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="dashboard-icon">🔥</div>
+                        <div class="dashboard-content">
+                            <h3 id="streak-count">0</h3>
+                            <p>Day Streak</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Achievement Badges -->
+                <div class="achievements-section">
+                    <h3>🏅 Your Achievements</h3>
+                    <div id="achievement-badges" class="achievement-badges">
+                        <!-- Badges will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Leaderboard -->
+                <div class="leaderboard-section">
+                    <h3>🏆 Weekly Leaderboard</h3>
+                    <div id="leaderboard" class="leaderboard">
+                        <div class="leaderboard-item">
+                            <span class="rank">1</span>
+                            <span class="name">Anonymous User</span>
+                            <span class="score">2,340 pts</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="rank">2</span>
+                            <span class="name">Quiz Master</span>
+                            <span class="score">2,156 pts</span>
+                        </div>
+                        <div class="leaderboard-item current-user">
+                            <span class="rank">-</span>
+                            <span class="name">You</span>
+                            <span class="score" id="user-leaderboard-score">0 pts</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -175,7 +270,8 @@
                         <i class="fas fa-question-circle"></i> Frequently Asked Questions
                     </a>
                 </div>
-                <p class="resource-note">✨ Boost your learning with expert study guides and get answers to common questions!</p>
+                <p class="resource-note">✨ Boost your learning with expert study guides and get answers to common
+                    questions!</p>
             </div>
         </div>
     </div>
@@ -272,6 +368,37 @@
     <script src="questions.js"></script>
     <script src="question-manager.js"></script>
     <script src="script.js"></script>
+    
+    <!-- Flag Detection Script -->
+    <script>
+        // Ensure flag emoji is visible or show fallback
+        function ensureFlagVisibility() {
+            const flagElement = document.querySelector('.indian-flag');
+            const fallbackElement = document.querySelector('.flag-fallback');
+            
+            if (flagElement && fallbackElement) {
+                // Test if emoji is supported by checking if the flag renders properly
+                setTimeout(() => {
+                    const rect = flagElement.getBoundingClientRect();
+                    // If the flag element has no width, emoji might not be rendering
+                    if (rect.width < 10) {
+                        flagElement.style.display = 'none';
+                        fallbackElement.style.display = 'inline-block';
+                    } else {
+                        // Ensure flag is visible with enhanced styling
+                        flagElement.style.display = 'inline-block';
+                        flagElement.style.opacity = '1';
+                        fallbackElement.style.display = 'none';
+                    }
+                }, 100);
+            }
+        }
+        
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', ensureFlagVisibility);
+        // Also run after a short delay to ensure fonts are loaded
+        setTimeout(ensureFlagVisibility, 500);
+    </script>
 </body>
 
 </html>
