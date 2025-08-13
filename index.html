@@ -48,14 +48,14 @@
 <meta name="twitter:image" content="https://hisameera.github.io/student-quiz-website/quiz-preview.png">
 
 <title>Quiz Master India - Free Educational Quiz for CBSE Students | 600+ Questions</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore-compat.js"></script><!-- Google Analytics -->
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore-compat.js"></script><!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
@@ -83,7 +83,7 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <h1><i class="fas fa-brain"></i> Quiz Master India</h1>
                 <p class="subtitle">
                     <span class="country-identifier">🇮🇳 INDIA</span>
@@ -135,16 +135,16 @@
                     <div class="dashboard-card">
                         <div class="dashboard-icon">🔥</div>
                         <div class="dashboard-content">
-                            <h3 id="streak-count">0</h3>
-                            <p>Day Streak</p>
+                            <h3 id="current-streak">0</h3>
+                            <p>Quiz Streak</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Achievement Badges -->
                 <div class="achievements-section">
                     <h3>🏅 Your Achievements</h3>
-                    <div id="achievement-badges" class="achievement-badges">
+                    <div id="achievements-list" class="achievement-badges">
                         <!-- Badges will be populated by JavaScript -->
                     </div>
                 </div>
@@ -177,6 +177,18 @@
                 <h2>🎯 Perfect for Class 6+ Students</h2>
                 <p>Test your knowledge with questions designed specifically for Indian students.
                     From Indian geography to local history, science concepts to general knowledge!</p>
+            </div>
+
+            <!-- Demo Mode Banner -->
+            <div id="demo-banner" class="demo-banner" style="display: none;">
+                <div class="banner-content">
+                    <div class="banner-icon">⚡</div>
+                    <div class="banner-text">
+                        <strong>Running in Demo Mode</strong>
+                        <p>Your progress is saved locally. Set up Firebase for cloud sync & leaderboards!</p>
+                    </div>
+                    <button class="banner-close" onclick="this.parentElement.parentElement.style.display='none'">×</button>
+                </div>
             </div>
 
             <div class="topic-selection">

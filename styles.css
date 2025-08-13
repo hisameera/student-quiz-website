@@ -822,6 +822,76 @@ body {
     margin: 0 auto;
 }
 
+/* Demo Banner Styles */
+.demo-banner {
+    background: linear-gradient(135deg, #ff9500 0%, #ff6b00 100%);
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 8px 25px rgba(255, 149, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 8px 25px rgba(255, 149, 0, 0.3); }
+    to { box-shadow: 0 8px 35px rgba(255, 149, 0, 0.5); }
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    position: relative;
+}
+
+.banner-icon {
+    font-size: 2em;
+    margin-right: 15px;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.banner-text {
+    flex: 1;
+    text-align: left;
+}
+
+.banner-text strong {
+    color: white;
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.banner-text p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-size: 0.95em;
+}
+
+.banner-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
 /* Share Section */
 .share-section {
     background: rgba(255, 255, 255, 0.1);

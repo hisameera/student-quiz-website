@@ -562,3 +562,556 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// Firebase Configuration and Authentication System
+class FirebaseAuth {
+    constructor() {
+        this.user = null;
+        this.initializeFirebase();
+        this.initializeAuthListeners();
+    }
+
+    initializeFirebase() {
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC7rZOQl_QD8VjxXQd8ZGLf9e8E4F5G6H7",
+            authDomain: "quiz-master-india.firebaseapp.com",
+            projectId: "quiz-master-india",
+            storageBucket: "quiz-master-india.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:a1b2c3d4e5f6g7h8i9j0k1"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        this.auth = firebase.auth();
+        this.db = firebase.firestore();
+
+        // Monitor auth state
+        this.auth.onAuthStateChanged((user) => {
+            this.user = user;
+            this.updateUI();
+            if (user) {
+                this.loadUserProgress();
+            }
+        });
+    }
+
+    initializeAuthListeners() {
+        // Login button
+        document.getElementById('login-btn').addEventListener('click', () => {
+            this.signInWithGoogle();
+        });
+
+        // Logout button
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            this.signOut();
+        });
+    }
+
+    async signInWithGoogle() {
+        try {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope('email');
+            provider.addScope('profile');
+            
+            const result = await this.auth.signInWithPopup(provider);
+            console.log('User signed in:', result.user.displayName);
+            
+            // Track login event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'login', {
+                    method: 'Google',
+                    user_id: result.user.uid
+                });
+            }
+        } catch (error) {
+            console.error('Error signing in:', error);
+            alert('Sign in failed. Please try again.');
+        }
+    }
+
+    async signOut() {
+        try {
+            await this.auth.signOut();
+            console.log('User signed out');
+            
+            // Track logout event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'logout', {
+                    method: 'Google'
+                });
+            }
+        } catch (error) {
+            console.error('Error signing out:', error);
+        }
+    }
+
+    updateUI() {
+        const userInfo = document.getElementById('user-info');
+        const authSection = document.getElementById('auth-section');
+        const userDashboard = document.getElementById('user-dashboard');
+        const userName = document.getElementById('user-name');
+
+        if (this.user) {
+            // User is signed in
+            userInfo.style.display = 'block';
+            authSection.style.display = 'none';
+            userDashboard.style.display = 'block';
+            userName.textContent = this.user.displayName || 'User';
+        } else {
+            // User is signed out
+            userInfo.style.display = 'none';
+            authSection.style.display = 'block';
+            userDashboard.style.display = 'none';
+        }
+    }
+
+    async saveQuizResult(topic, score, totalQuestions, answers) {
+        if (!this.user) return;
+
+        try {
+            const userRef = this.db.collection('users').doc(this.user.uid);
+            const quizRef = userRef.collection('quizResults').doc();
+
+            await quizRef.set({
+                topic: topic,
+                score: score,
+                totalQuestions: totalQuestions,
+                percentage: Math.round((score / totalQuestions) * 100),
+                answers: answers,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                date: new Date().toISOString().split('T')[0]
+            });
+
+            // Update user stats
+            await this.updateUserStats(topic, score, totalQuestions);
+            console.log('Quiz result saved successfully');
+        } catch (error) {
+            console.error('Error saving quiz result:', error);
+        }
+    }
+
+    async updateUserStats(topic, score, totalQuestions) {
+        if (!this.user) return;
+
+        try {
+            const userRef = this.db.collection('users').doc(this.user.uid);
+            const userDoc = await userRef.get();
+
+            let stats = {
+                totalScore: score,
+                quizzesCompleted: 1,
+                totalQuestions: totalQuestions,
+                topicsPlayed: [topic],
+                lastPlayed: firebase.firestore.FieldValue.serverTimestamp(),
+                achievements: []
+            };
+
+            if (userDoc.exists) {
+                const existingStats = userDoc.data();
+                stats = {
+                    totalScore: (existingStats.totalScore || 0) + score,
+                    quizzesCompleted: (existingStats.quizzesCompleted || 0) + 1,
+                    totalQuestions: (existingStats.totalQuestions || 0) + totalQuestions,
+                    topicsPlayed: [...new Set([...(existingStats.topicsPlayed || []), topic])],
+                    lastPlayed: firebase.firestore.FieldValue.serverTimestamp(),
+                    achievements: existingStats.achievements || []
+                };
+
+                // Check for new achievements
+                await this.checkAchievements(stats);
+            }
+
+            await userRef.set(stats, { merge: true });
+        } catch (error) {
+            console.error('Error updating user stats:', error);
+        }
+    }
+
+    async checkAchievements(stats) {
+        const newAchievements = [];
+
+        // First Quiz Achievement
+        if (stats.quizzesCompleted === 1 && !stats.achievements.includes('first_quiz')) {
+            newAchievements.push('first_quiz');
+        }
+
+        // Quiz Master Achievement (10 quizzes)
+        if (stats.quizzesCompleted >= 10 && !stats.achievements.includes('quiz_master')) {
+            newAchievements.push('quiz_master');
+        }
+
+        // Perfect Score Achievement
+        if (stats.totalScore > 0 && stats.totalScore / stats.totalQuestions === 1 && !stats.achievements.includes('perfect_score')) {
+            newAchievements.push('perfect_score');
+        }
+
+        // All Topics Achievement
+        if (stats.topicsPlayed.length >= 6 && !stats.achievements.includes('all_topics')) {
+            newAchievements.push('all_topics');
+        }
+
+        if (newAchievements.length > 0) {
+            stats.achievements.push(...newAchievements);
+            this.showAchievementNotification(newAchievements);
+        }
+    }
+
+    showAchievementNotification(achievements) {
+        achievements.forEach(achievement => {
+            const messages = {
+                'first_quiz': '🎉 First Quiz Completed!',
+                'quiz_master': '🏆 Quiz Master - 10 Quizzes Completed!',
+                'perfect_score': '⭐ Perfect Score Achieved!',
+                'all_topics': '🌟 All Topics Mastered!'
+            };
+
+            // Simple notification (can be enhanced with a proper notification system)
+            alert(messages[achievement] || 'New Achievement Unlocked!');
+        });
+    }
+
+    async loadUserProgress() {
+        if (!this.user) return;
+
+        try {
+            const userRef = this.db.collection('users').doc(this.user.uid);
+            const userDoc = await userRef.get();
+
+            if (userDoc.exists) {
+                const stats = userDoc.data();
+                this.updateDashboard(stats);
+            }
+        } catch (error) {
+            console.error('Error loading user progress:', error);
+        }
+    }
+
+    updateDashboard(stats) {
+        // Update dashboard elements
+        document.getElementById('total-score').textContent = stats.totalScore || 0;
+        document.getElementById('quizzes-completed').textContent = stats.quizzesCompleted || 0;
+        
+        const avgScore = stats.totalQuestions > 0 ? 
+            Math.round((stats.totalScore / stats.totalQuestions) * 100) : 0;
+        document.getElementById('average-score').textContent = `${avgScore}%`;
+        
+        document.getElementById('current-streak').textContent = stats.quizzesCompleted || 0;
+
+        // Update leaderboard score
+        const userLeaderboardScore = document.getElementById('user-leaderboard-score');
+        if (userLeaderboardScore) {
+            userLeaderboardScore.textContent = `${stats.totalScore || 0} pts`;
+        }
+
+        // Update achievements
+        this.displayAchievements(stats.achievements || []);
+        
+        // Load and update leaderboard
+        this.loadLeaderboard();
+    }
+
+    displayAchievements(achievements) {
+        const achievementsList = document.getElementById('achievements-list');
+        if (!achievementsList) return;
+
+        const achievementBadges = {
+            'first_quiz': '🎯 First Quiz',
+            'quiz_master': '🏆 Quiz Master',
+            'perfect_score': '⭐ Perfect Score',
+            'all_topics': '🌟 All Topics'
+        };
+
+        achievementsList.innerHTML = '';
+        achievements.forEach(achievement => {
+            const badge = document.createElement('div');
+            badge.className = 'achievement-badge earned';
+            badge.textContent = achievementBadges[achievement] || achievement;
+            achievementsList.appendChild(badge);
+        });
+    }
+
+    async loadLeaderboard() {
+        try {
+            // Get top 10 users by total score
+            const leaderboardQuery = await this.db.collection('users')
+                .orderBy('totalScore', 'desc')
+                .limit(10)
+                .get();
+
+            const leaderboard = document.getElementById('leaderboard');
+            if (!leaderboard) return;
+
+            // Clear existing leaderboard except current user entry
+            const currentUserEntry = leaderboard.querySelector('.current-user');
+            leaderboard.innerHTML = '';
+
+            let rank = 1;
+            let currentUserRank = '-';
+
+            leaderboardQuery.forEach((doc) => {
+                const userData = doc.data();
+                const isCurrentUser = this.user && doc.id === this.user.uid;
+
+                if (isCurrentUser) {
+                    currentUserRank = rank;
+                }
+
+                if (rank <= 5) { // Show top 5 in main leaderboard
+                    const item = document.createElement('div');
+                    item.className = `leaderboard-item ${isCurrentUser ? 'current-user' : ''}`;
+                    item.innerHTML = `
+                        <span class="rank">${rank}</span>
+                        <span class="name">${isCurrentUser ? 'You' : (userData.displayName || 'Anonymous')}</span>
+                        <span class="score">${userData.totalScore || 0} pts</span>
+                    `;
+                    leaderboard.appendChild(item);
+                }
+                rank++;
+            });
+
+            // Add current user at bottom if not in top 5
+            if (this.user && currentUserRank > 5) {
+                const userStats = await this.db.collection('users').doc(this.user.uid).get();
+                if (userStats.exists) {
+                    const userData = userStats.data();
+                    const item = document.createElement('div');
+                    item.className = 'leaderboard-item current-user';
+                    item.innerHTML = `
+                        <span class="rank">${currentUserRank}</span>
+                        <span class="name">You</span>
+                        <span class="score">${userData.totalScore || 0} pts</span>
+                    `;
+                    leaderboard.appendChild(item);
+                }
+            }
+
+        } catch (error) {
+            console.error('Error loading leaderboard:', error);
+        }
+    }
+}
+
+// Demo/Local Storage Fallback System
+class DemoAuth {
+    constructor() {
+        this.user = this.getLocalUser();
+        this.initializeDemoListeners();
+        this.updateUI();
+        if (this.user) {
+            this.loadLocalProgress();
+        }
+    }
+
+    initializeDemoListeners() {
+        // Demo login button
+        document.getElementById('login-btn').addEventListener('click', () => {
+            this.demoLogin();
+        });
+
+        // Demo logout button
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            this.demoLogout();
+        });
+    }
+
+    demoLogin() {
+        const name = prompt('Enter your name for demo mode:') || 'Demo User';
+        this.user = {
+            uid: 'demo_' + Date.now(),
+            displayName: name,
+            email: 'demo@example.com'
+        };
+        localStorage.setItem('demoUser', JSON.stringify(this.user));
+        this.updateUI();
+        this.loadLocalProgress();
+        alert(`Welcome ${name}! You're now in demo mode. Your progress will be saved locally.`);
+    }
+
+    demoLogout() {
+        this.user = null;
+        localStorage.removeItem('demoUser');
+        localStorage.removeItem('demoStats');
+        this.updateUI();
+        alert('Demo session ended. Your progress has been cleared.');
+    }
+
+    getLocalUser() {
+        const stored = localStorage.getItem('demoUser');
+        return stored ? JSON.parse(stored) : null;
+    }
+
+    updateUI() {
+        const userInfo = document.getElementById('user-info');
+        const authSection = document.getElementById('auth-section');
+        const userDashboard = document.getElementById('user-dashboard');
+        const userName = document.getElementById('user-name');
+        const demoBanner = document.getElementById('demo-banner');
+
+        if (this.user) {
+            userInfo.style.display = 'block';
+            authSection.style.display = 'none';
+            userDashboard.style.display = 'block';
+            userName.textContent = this.user.displayName;
+            
+            // Show demo banner when user is logged in to demo mode
+            if (demoBanner) {
+                demoBanner.style.display = 'block';
+            }
+        } else {
+            userInfo.style.display = 'none';
+            authSection.style.display = 'block';
+            userDashboard.style.display = 'none';
+            
+            // Hide demo banner when not logged in
+            if (demoBanner) {
+                demoBanner.style.display = 'none';
+            }
+        }
+    }
+
+    saveQuizResult(topic, score, totalQuestions, answers) {
+        if (!this.user) return;
+
+        const stats = this.getLocalStats();
+        
+        // Update stats
+        stats.totalScore += score;
+        stats.quizzesCompleted += 1;
+        stats.totalQuestions += totalQuestions;
+        
+        if (!stats.topicsPlayed.includes(topic)) {
+            stats.topicsPlayed.push(topic);
+        }
+
+        // Check achievements
+        this.checkLocalAchievements(stats);
+
+        // Save to local storage
+        localStorage.setItem('demoStats', JSON.stringify(stats));
+        this.updateLocalDashboard(stats);
+    }
+
+    getLocalStats() {
+        const stored = localStorage.getItem('demoStats');
+        return stored ? JSON.parse(stored) : {
+            totalScore: 0,
+            quizzesCompleted: 0,
+            totalQuestions: 0,
+            topicsPlayed: [],
+            achievements: []
+        };
+    }
+
+    checkLocalAchievements(stats) {
+        const newAchievements = [];
+
+        if (stats.quizzesCompleted === 1 && !stats.achievements.includes('first_quiz')) {
+            newAchievements.push('first_quiz');
+        }
+
+        if (stats.quizzesCompleted >= 10 && !stats.achievements.includes('quiz_master')) {
+            newAchievements.push('quiz_master');
+        }
+
+        if (stats.topicsPlayed.length >= 6 && !stats.achievements.includes('all_topics')) {
+            newAchievements.push('all_topics');
+        }
+
+        if (newAchievements.length > 0) {
+            stats.achievements.push(...newAchievements);
+            this.showAchievementNotification(newAchievements);
+        }
+    }
+
+    showAchievementNotification(achievements) {
+        achievements.forEach(achievement => {
+            const messages = {
+                'first_quiz': '🎉 First Quiz Completed!',
+                'quiz_master': '🏆 Quiz Master - 10 Quizzes Completed!',
+                'perfect_score': '⭐ Perfect Score Achieved!',
+                'all_topics': '🌟 All Topics Mastered!'
+            };
+            alert(messages[achievement] || 'New Achievement Unlocked!');
+        });
+    }
+
+    loadLocalProgress() {
+        const stats = this.getLocalStats();
+        this.updateLocalDashboard(stats);
+    }
+
+    updateLocalDashboard(stats) {
+        document.getElementById('total-score').textContent = stats.totalScore || 0;
+        document.getElementById('quizzes-completed').textContent = stats.quizzesCompleted || 0;
+        
+        const avgScore = stats.totalQuestions > 0 ? 
+            Math.round((stats.totalScore / stats.totalQuestions) * 100) : 0;
+        document.getElementById('average-score').textContent = `${avgScore}%`;
+        
+        document.getElementById('current-streak').textContent = stats.quizzesCompleted || 0;
+
+        const userLeaderboardScore = document.getElementById('user-leaderboard-score');
+        if (userLeaderboardScore) {
+            userLeaderboardScore.textContent = `${stats.totalScore || 0} pts`;
+        }
+
+        this.displayLocalAchievements(stats.achievements || []);
+    }
+
+    displayLocalAchievements(achievements) {
+        const achievementsList = document.getElementById('achievements-list');
+        if (!achievementsList) return;
+
+        const achievementBadges = {
+            'first_quiz': '🎯 First Quiz',
+            'quiz_master': '🏆 Quiz Master',
+            'perfect_score': '⭐ Perfect Score',
+            'all_topics': '🌟 All Topics'
+        };
+
+        achievementsList.innerHTML = '';
+        achievements.forEach(achievement => {
+            const badge = document.createElement('div');
+            badge.className = 'achievement-badge earned';
+            badge.textContent = achievementBadges[achievement] || achievement;
+            achievementsList.appendChild(badge);
+        });
+    }
+}
+
+// Initialize Authentication System
+document.addEventListener('DOMContentLoaded', () => {
+    // Try Firebase first, fallback to demo mode
+    if (typeof firebase !== 'undefined' && firebase.apps) {
+        try {
+            window.firebaseAuth = new FirebaseAuth();
+        } catch (error) {
+            console.log('Firebase not configured, using demo mode');
+            window.firebaseAuth = new DemoAuth();
+        }
+    } else {
+        console.log('Firebase not available, using demo mode');
+        window.firebaseAuth = new DemoAuth();
+    }
+});
+
+// Enhance QuizMaster to work with Firebase
+const originalQuizMaster = window.QuizMaster || QuizMaster;
+QuizMaster.prototype.completeQuiz = function() {
+    this.showResults();
+    
+    // Save to Firebase if user is logged in
+    if (window.firebaseAuth && window.firebaseAuth.user) {
+        window.firebaseAuth.saveQuizResult(
+            this.currentTopic,
+            this.score,
+            this.questions.length,
+            this.userAnswers
+        );
+    }
+};
