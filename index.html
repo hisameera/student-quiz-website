@@ -86,8 +86,7 @@
                 
                 <h1><i class="fas fa-brain"></i> Quiz Master India</h1>
                 <p class="subtitle">
-                    <span class="indian-flag" title="India 🇮🇳" style="display: inline-block; font-size: 1.8em; margin: 0 8px; vertical-align: middle;">🇮🇳</span>
-                    <span class="flag-fallback" style="display: none; color: #ff6600; font-weight: bold; border: 2px solid #ff6600; padding: 2px 6px; border-radius: 3px;">[INDIA]</span>
+                    <span class="country-identifier">🇮🇳 INDIA</span>
                     Master Your Knowledge with Indian Context Questions
                 </p>
             </div>
@@ -368,37 +367,6 @@
     <script src="questions.js"></script>
     <script src="question-manager.js"></script>
     <script src="script.js"></script>
-    
-    <!-- Flag Detection Script -->
-    <script>
-        // Ensure flag emoji is visible or show fallback
-        function ensureFlagVisibility() {
-            const flagElement = document.querySelector('.indian-flag');
-            const fallbackElement = document.querySelector('.flag-fallback');
-            
-            if (flagElement && fallbackElement) {
-                // Test if emoji is supported by checking if the flag renders properly
-                setTimeout(() => {
-                    const rect = flagElement.getBoundingClientRect();
-                    // If the flag element has no width, emoji might not be rendering
-                    if (rect.width < 10) {
-                        flagElement.style.display = 'none';
-                        fallbackElement.style.display = 'inline-block';
-                    } else {
-                        // Ensure flag is visible with enhanced styling
-                        flagElement.style.display = 'inline-block';
-                        flagElement.style.opacity = '1';
-                        fallbackElement.style.display = 'none';
-                    }
-                }, 100);
-            }
-        }
-        
-        // Run on page load
-        document.addEventListener('DOMContentLoaded', ensureFlagVisibility);
-        // Also run after a short delay to ensure fonts are loaded
-        setTimeout(ensureFlagVisibility, 500);
-    </script>
 </body>
 
 </html>
