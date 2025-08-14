@@ -1179,3 +1179,11 @@ QuizMaster.prototype.completeQuiz = function () {
         );
     }
 };
+
+// Utility function to scroll to top smoothly
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}

@@ -49,6 +49,19 @@ body {
     gap: 12px;
 }
 
+.brand-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.brand-link:hover {
+    opacity: 0.8;
+}
+
 .brand-logo {
     width: 45px;
     height: 45px;
