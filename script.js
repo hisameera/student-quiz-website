@@ -572,33 +572,44 @@ class FirebaseAuth {
     }
 
     initializeFirebase() {
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBCjR-cUIjbJ5uGnoX3UN8r8luxHCU9VOU",
-            authDomain: "quiz-master-india-b9c9b.firebaseapp.com",
-            projectId: "quiz-master-india-b9c9b",
-            storageBucket: "quiz-master-india-b9c9b.firebasestorage.app",
-            messagingSenderId: "921781979213",
-            appId: "1:921781979213:web:a49c9e3337ee327022b404",
-            measurementId: "G-5X5DH76NMQ"
-        };
+        try {
+            console.log('Initializing Firebase...');
+            // Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyBCjR-cUIjbJ5uGnoX3UN8r8luxHCU9VOU",
+                authDomain: "quiz-master-india-b9c9b.firebaseapp.com",
+                projectId: "quiz-master-india-b9c9b",
+                storageBucket: "quiz-master-india-b9c9b.firebasestorage.app",
+                messagingSenderId: "921781979213",
+                appId: "1:921781979213:web:a49c9e3337ee327022b404",
+                measurementId: "G-5X5DH76NMQ"
+            };
 
-        // Initialize Firebase
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-
-        this.auth = firebase.auth();
-        this.db = firebase.firestore();
-
-        // Monitor auth state
-        this.auth.onAuthStateChanged((user) => {
-            this.user = user;
-            this.updateUI();
-            if (user) {
-                this.loadUserProgress();
+            // Initialize Firebase
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+                console.log('Firebase initialized successfully');
+            } else {
+                console.log('Firebase already initialized');
             }
-        });
+
+            this.auth = firebase.auth();
+            this.db = firebase.firestore();
+            console.log('Firebase services ready');
+
+            // Monitor auth state
+            this.auth.onAuthStateChanged((user) => {
+                console.log('Auth state changed:', user ? user.displayName : 'No user');
+                this.user = user;
+                this.updateUI();
+                if (user) {
+                    this.loadUserProgress();
+                }
+            });
+        } catch (error) {
+            console.error('Firebase initialization error:', error);
+            alert('Firebase setup error. Please check console for details.');
+        }
     }
 
     initializeAuthListeners() {
@@ -615,13 +626,15 @@ class FirebaseAuth {
 
     async signInWithGoogle() {
         try {
+            console.log('Attempting Google sign-in...');
             const provider = new firebase.auth.GoogleAuthProvider();
             provider.addScope('email');
             provider.addScope('profile');
-
+            
+            console.log('Provider configured, showing popup...');
             const result = await this.auth.signInWithPopup(provider);
-            console.log('User signed in:', result.user.displayName);
-
+            console.log('User signed in successfully:', result.user.displayName);
+            
             // Track login event
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'login', {
@@ -630,12 +643,31 @@ class FirebaseAuth {
                 });
             }
         } catch (error) {
-            console.error('Error signing in:', error);
-            alert('Sign in failed. Please try again.');
+            console.error('Detailed sign-in error:', error);
+            console.error('Error code:', error.code);
+            console.error('Error message:', error.message);
+            
+            // Show specific error messages
+            let userMessage = 'Sign in failed. ';
+            switch(error.code) {
+                case 'auth/popup-blocked':
+                    userMessage += 'Please allow popups for this site and try again.';
+                    break;
+                case 'auth/popup-closed-by-user':
+                    userMessage += 'Sign-in was cancelled.';
+                    break;
+                case 'auth/unauthorized-domain':
+                    userMessage += 'Domain not authorized. Please contact support.';
+                    break;
+                case 'auth/operation-not-allowed':
+                    userMessage += 'Google sign-in is not enabled. Please contact support.';
+                    break;
+                default:
+                    userMessage += `Error: ${error.message}`;
+            }
+            alert(userMessage);
         }
-    }
-
-    async signOut() {
+    }    async signOut() {
         try {
             await this.auth.signOut();
             console.log('User signed out');
