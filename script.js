@@ -289,6 +289,17 @@ class QuizMaster {
     showResults() {
         this.stopTimer();
 
+        // Save to Firebase if user is logged in
+        if (window.firebaseAuth && window.firebaseAuth.user) {
+            console.log('Saving quiz result to Firebase...');
+            window.firebaseAuth.saveQuizResult(
+                this.currentTopic,
+                this.score,
+                this.questions.length,
+                this.userAnswers
+            );
+        }
+
         const scoreElement = document.getElementById('final-score');
         const percentageElement = document.getElementById('score-percentage');
         const correctCountElement = document.getElementById('correct-count');
@@ -630,11 +641,11 @@ class FirebaseAuth {
             const provider = new firebase.auth.GoogleAuthProvider();
             provider.addScope('email');
             provider.addScope('profile');
-            
+
             console.log('Provider configured, showing popup...');
             const result = await this.auth.signInWithPopup(provider);
             console.log('User signed in successfully:', result.user.displayName);
-            
+
             // Track login event
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'login', {
@@ -646,10 +657,10 @@ class FirebaseAuth {
             console.error('Detailed sign-in error:', error);
             console.error('Error code:', error.code);
             console.error('Error message:', error.message);
-            
+
             // Show specific error messages
             let userMessage = 'Sign in failed. ';
-            switch(error.code) {
+            switch (error.code) {
                 case 'auth/popup-blocked':
                     userMessage += 'Please allow popups for this site and try again.';
                     break;
@@ -667,7 +678,7 @@ class FirebaseAuth {
             }
             alert(userMessage);
         }
-    }    async signOut() {
+    } async signOut() {
         try {
             await this.auth.signOut();
             console.log('User signed out');
@@ -704,7 +715,12 @@ class FirebaseAuth {
     }
 
     async saveQuizResult(topic, score, totalQuestions, answers) {
-        if (!this.user) return;
+        if (!this.user) {
+            console.log('No user logged in, cannot save quiz result');
+            return;
+        }
+
+        console.log('Saving quiz result:', { topic, score, totalQuestions, userId: this.user.uid });
 
         try {
             const userRef = this.db.collection('users').doc(this.user.uid);
@@ -720,16 +736,21 @@ class FirebaseAuth {
                 date: new Date().toISOString().split('T')[0]
             });
 
+            console.log('Quiz result saved to Firestore successfully');
+            
             // Update user stats
             await this.updateUserStats(topic, score, totalQuestions);
-            console.log('Quiz result saved successfully');
+            console.log('User stats updated successfully');
         } catch (error) {
             console.error('Error saving quiz result:', error);
+            console.error('Error details:', error.message);
         }
     }
 
     async updateUserStats(topic, score, totalQuestions) {
         if (!this.user) return;
+
+        console.log('Updating user stats for:', this.user.uid);
 
         try {
             const userRef = this.db.collection('users').doc(this.user.uid);
@@ -745,6 +766,7 @@ class FirebaseAuth {
             };
 
             if (userDoc.exists) {
+                console.log('Existing user data found, updating...');
                 const existingStats = userDoc.data();
                 stats = {
                     totalScore: (existingStats.totalScore || 0) + score,
@@ -755,13 +777,22 @@ class FirebaseAuth {
                     achievements: existingStats.achievements || []
                 };
 
+                console.log('Updated stats:', stats);
+                
                 // Check for new achievements
                 await this.checkAchievements(stats);
+            } else {
+                console.log('Creating new user stats');
             }
 
             await userRef.set(stats, { merge: true });
+            console.log('User stats saved to Firestore');
+            
+            // Immediately update the dashboard
+            this.updateDashboard(stats);
         } catch (error) {
             console.error('Error updating user stats:', error);
+            console.error('Error details:', error.message);
         }
     }
 
