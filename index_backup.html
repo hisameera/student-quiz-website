@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5934DQ90B"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-Q5934DQ90B', {
+        page_title: 'Quiz Master India - Homepage',
+        page_location: window.location.href
+    });
+
+    // Debug: Send a test event to verify tracking
+    gtag('event', 'page_view_test', {
+        event_category: 'test',
+        event_label: 'homepage_load',
+        debug_mode: true
+    });
+
+    console.log('Google Analytics initialized with ID: G-Q5934DQ90B');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Enhanced SEO Meta Tags -->
+<meta name="description"
+    content="Free interactive educational quiz for Indian students aged 12+. 600+ CBSE-aligned questions across Science, Math, History, Geography, English & General Knowledge. Test your knowledge now!">
+<meta name="keywords"
+    content="CBSE quiz, Indian students quiz, Class 6 questions, educational quiz India, free online quiz, school quiz, student assessment, NCERT questions, Indian education">
+<meta name="author" content="Quiz Master India">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hisameera.github.io/student-quiz-website/">
+
+<!-- Open Graph for Social Media -->
+<meta property="og:title" content="Quiz Master India - Free Educational Quiz for CBSE Students">
+<meta property="og:description"
+    content="Challenge yourself with 600+ Indian context questions! Perfect for Class 6+ students. Free, fun, and educational.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hisameera.github.io/student-quiz-website/">
+<meta property="og:image" content="https://hisameera.github.io/student-quiz-website/quiz-preview.png">
+<meta property="og:site_name" content="Quiz Master India">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quiz Master India - Free CBSE Quiz">
+<meta name="twitter:description" content="600+ questions for Indian students. Test your knowledge now!">
+<meta name="twitter:image" content="https://hisameera.github.io/student-quiz-website/quiz-preview.png">
+
+<title>Quiz Master India - Free Educational Quiz for CBSE Students | 600+ Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+    <!-- Professional Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Quiz Master India</h1>
+                    <span class="brand-tagline">Learn • Practice • Excel</span>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#subjects" class="nav-link">Subjects</a>
+                <a href="#about" class="nav-link">About</a>
+            </div>
+
+            <div class="nav-auth">
+                <div id="user-info" class="user-info" style="display: none;">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <span id="user-greeting">Welcome, <span id="user-name"></span>!</span>
+                    <button id="logout-btn" class="auth-btn logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+                <div id="auth-section" class="auth-section">
+                    <button id="login-btn" class="auth-btn login">
+                        <i class="fas fa-user"></i> Sign In
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-background">
+                <div class="hero-pattern"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <span class="country-flag">🇮🇳</span>
+                        <span>Made for Indian Students</span>
+                    </div>
+                    <h1 class="hero-title">Master Your Knowledge with <span class="highlight">Quiz Master India</span>
+                    </h1>
+                    <p class="hero-description">
+                        Comprehensive quiz platform designed specifically for Indian students.
+                        600+ CBSE-aligned questions across 6 subjects to boost your learning.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <div class="stat-number">600+</div>
+                            <div class="stat-label">Questions</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="stat-number">6</div>
+                            <div class="stat-label">Subjects</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="stat-number">CBSE</div>
+                            <div class="stat-label">Aligned</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-graphic">
+                        <div class="graphic-circle primary">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="graphic-circle secondary">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="graphic-circle tertiary">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="floating-elements">
+                            <div class="floating-element">📚</div>
+                            <div class="floating-element">🎯</div>
+                            <div class="floating-element">⭐</div>
+                            <div class="floating-element">🏆</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Professional Dashboard Section -->
+        <section id="user-dashboard" class="dashboard-section" style="display: none;">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-line"></i>
+                        Your Learning Dashboard
+                    </h2>
+                    <p class="section-subtitle">Track your progress and achievements</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card primary">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="card-label">Total Score</div>
+                        </div>
+                        <div class="card-value" id="total-score">0</div>
+                        <div class="card-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Keep going!</span>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card secondary">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="card-label">Quizzes Completed</div>
+                        </div>
+                        <div class="card-value" id="quizzes-completed">0</div>
+                        <div class="card-trend">
+                            <i class="fas fa-target"></i>
+                            <span>Goal: 10 quizzes</span>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card tertiary">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="card-label">Average Score</div>
+                        </div>
+                        <div class="card-value" id="average-score">0%</div>
+                        <div class="card-trend">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Improving</span>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card quaternary">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="card-label">Current Streak</div>
+                        </div>
+                        <div class="card-value" id="current-streak">0</div>
+                        <div class="card-trend">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Days active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Achievements Section -->
+                <div class="achievements-container">
+                    <div class="achievements-header">
+                        <h3 class="achievements-title">
+                            <i class="fas fa-medal"></i>
+                            Your Achievements
+                        </h3>
+                        <div class="achievements-progress">
+                            <span class="progress-text">4 more to unlock Quiz Master</span>
+                        </div>
+                    </div>
+                    <div id="achievements-list" class="achievements-grid">
+                        <!-- Badges will be populated by JavaScript -->
+                        <div class="achievement-placeholder">
+                            <div class="placeholder-icon">🏆</div>
+                            <div class="placeholder-text">Complete your first quiz to unlock achievements!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Leaderboard -->
+                <div class="leaderboard-container">
+                    <div class="leaderboard-header">
+                        <h3 class="leaderboard-title">
+                            <i class="fas fa-trophy"></i>
+                            Weekly Leaderboard
+                        </h3>
+                        <div class="leaderboard-period">
+                            <span>This Week</span>
+                        </div>
+                    </div>
+                    <div id="leaderboard" class="leaderboard-list">
+                        <div class="leaderboard-item sample">
+                            <div class="rank-badge gold">1</div>
+                            <div class="user-info">
+                                <div class="user-name">Top Performer</div>
+                                <div class="user-stats">5 quizzes completed</div>
+                            </div>
+                            <div class="user-score">2,340 pts</div>
+                        </div>
+                        <div class="leaderboard-item sample">
+                            <div class="rank-badge silver">2</div>
+                            <div class="user-info">
+                                <div class="user-name">Quiz Master</div>
+                                <div class="user-stats">4 quizzes completed</div>
+                            </div>
+                            <div class="user-score">2,156 pts</div>
+                        </div>
+                        <div class="leaderboard-item current-user">
+                            <div class="rank-badge">-</div>
+                            <div class="user-info">
+                                <div class="user-name">You</div>
+                                <div class="user-stats">Getting started</div>
+                            </div>
+                            <div class="user-score" id="user-leaderboard-score">0 pts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Intro Section -->
+        <div class="intro-section">
+            <h2>🎯 Perfect for Class 6+ Students</h2>
+            <p>Test your knowledge with questions designed specifically for Indian students.
+                From Indian geography to local history, science concepts to general knowledge!</p>
+        </div>
+
+        <!-- Demo Mode Banner -->
+        <div id="demo-banner" class="demo-banner" style="display: none;">
+            <div class="banner-content">
+                <div class="banner-icon">⚡</div>
+                <div class="banner-text">
+                    <strong>Running in Demo Mode</strong>
+                    <p>Your progress is saved locally. Set up Firebase for cloud sync & leaderboards!</p>
+                </div>
+                <button class="banner-close" onclick="this.parentElement.parentElement.style.display='none'">×</button>
+            </div>
+        </div>
+
+        <div class="topic-selection">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Choose Your Subject</h2>
+                    <p class="section-subtitle">600+ carefully crafted questions aligned with CBSE curriculum</p>
+                </div>
+
+                <div class="subjects-grid">
+                    <div class="subject-card" data-topic="science">
+                        <div class="subject-visual">
+                            <div class="subject-icon">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <div class="subject-badge">100+ Questions</div>
+                        </div>
+                        <div class="subject-content">
+                            <h3 class="subject-title">Science</h3>
+                            <p class="subject-description">
+                                Physics, Chemistry & Biology concepts with practical Indian examples.
+                            </p>
+                            <div class="subject-features">
+                                <span class="feature-tag">Physics</span>
+                                <span class="feature-tag">Chemistry</span>
+                                <span class="feature-tag">Biology</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subject-card" data-topic="math">
+                        <div class="subject-visual">
+                            <div class="subject-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="subject-badge">100+ Questions</div>
+                        </div>
+                        <div class="subject-content">
+                            <h3 class="subject-title">Mathematics</h3>
+                            <p class="subject-description">
+                                Arithmetic, geometry, and logical reasoning problems.
+                            </p>
+                            <div class="subject-features">
+                                <span class="feature-tag">Arithmetic</span>
+                                <span class="feature-tag">Geometry</span>
+                                <span class="feature-tag">Logic</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subject-card" data-topic="history">
+                        <div class="subject-visual">
+                            <div class="subject-icon">
+                                <i class="fas fa-landmark"></i>
+                            </div>
+                            <div class="subject-badge">100+ Questions</div>
+                        </div>
+                        <div class="subject-content">
+                            <h3 class="subject-title">History</h3>
+                            <p class="subject-description">
+                                Indian history, ancient civilizations, and world events.
+                            </p>
+                            <div class="subject-features">
+                                <span class="feature-tag">Ancient India</span>
+                                <span class="feature-tag">Medieval</span>
+                                <span class="feature-tag">Modern</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subject-card" data-topic="geography">
+                        <div class="subject-visual">
+                            <div class="subject-icon">
+                                <i class="fas fa-globe-asia"></i>
+                            </div>
+                            <div class="subject-badge">100+ Questions</div>
+                        </div>
+                        <div class="subject-content">
+                            <h3 class="subject-title">Geography</h3>
+                            <p class="subject-description">
+                                Indian states, world countries, and physical features.
+                            </p>
+                            <div class="subject-features">
+                                <span class="feature-tag">Indian States</span>
+                                <span class="feature-tag">World Map</span>
+                                <span class="feature-tag">Climate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subject-card" data-topic="english">
+                        <div class="subject-visual">
+                            <div class="subject-icon">
+                                <i class="fas fa-pen-fancy"></i>
+                            </div>
+                            <div class="subject-badge">100+ Questions</div>
+                        </div>
+                        <div class="subject-content">
+                            <h3 class="subject-title">English</h3>
+                            <p class="subject-description">
+                                Grammar, vocabulary, comprehension, and literature.
+                            </p>
+                            <div class="subject-features">
+                                <span class="feature-tag">Grammar</span>
+                                <span class="feature-tag">Vocabulary</span>
+                                <span class="feature-tag">Literature</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subject-card" data-topic="general-knowledge">
+                        <div class="subject-visual">
+                            <div class="subject-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="subject-badge">100+ Questions</div>
+                        </div>
+                        <div class="subject-content">
+                            <h3 class="subject-title">General Knowledge</h3>
+                            <p class="subject-description">
+                                Current affairs, sports, culture, and general awareness.
+                            </p>
+                            <div class="subject-features">
+                                <span class="feature-tag">Current Affairs</span>
+                                <span class="feature-tag">Sports</span>
+                                <span class="feature-tag">Culture</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Proof Section -->
+    <div class="social-proof">
+        <h3>🏆 Join 1000+ Students Already Learning!</h3>
+        <div class="testimonials">
+            <div class="testimonial">
+                <i class="fas fa-quote-left"></i>
+                <p>"Helped me prepare for my school exams. Love the Indian context questions!"</p>
+                <span>- Priya, Class 7, Mumbai</span>
+            </div>
+            <div class="testimonial">
+                <i class="fas fa-quote-left"></i>
+                <p>"My son improved his general knowledge significantly. Highly recommended!"</p>
+                <span>- Parent from Delhi</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Section -->
+    <div class="share-section">
+        <h3>📢 Share with Friends</h3>
+        <div class="share-buttons">
+            <button class="share-btn whatsapp" onclick="shareQuiz('whatsapp')">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </button>
+            <button class="share-btn facebook" onclick="shareQuiz('facebook')">
+                <i class="fab fa-facebook"></i> Facebook
+            </button>
+            <button class="share-btn twitter" onclick="shareQuiz('twitter')">
+                <i class="fab fa-twitter"></i> Twitter
+            </button>
+            <button class="share-btn telegram" onclick="shareQuiz('telegram')">
+                <i class="fab fa-telegram"></i> Telegram
+            </button>
+        </div>
+    </div>
+
+    <!-- Additional Resources -->
+    <div class="resources-section">
+        <h3>📚 Additional Resources</h3>
+        <div class="resource-links">
+            <a href="blog.html" class="resource-btn">
+                <i class="fas fa-blog"></i> Study Tips & Articles
+            </a>
+            <a href="faq.html" class="resource-btn">
+                <i class="fas fa-question-circle"></i> Frequently Asked Questions
+            </a>
+        </div>
+        <p class="resource-note">✨ Boost your learning with expert study guides and get answers to common
+            questions!</p>
+    </div>
+    </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="screen">
+        <div class="container">
+            <div class="quiz-header">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <span class="progress-text" id="progress-text">Question 1 of 20</span>
+                </div>
+                <div class="timer-container">
+                    <div class="timer" id="timer">45</div>
+                    <div class="timer-bar">
+                        <div class="timer-fill" id="timer-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <h2 class="question" id="question">Loading question...</h2>
+                <div class="answers" id="answers">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="quiz-controls">
+                <button id="next-btn" class="btn btn-primary" disabled>
+                    Next Question <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="screen">
+        <div class="container">
+            <div class="results-container">
+                <div class="score-display">
+                    <i class="fas fa-trophy"></i>
+                    <h1>Quiz Complete!</h1>
+                    <div class="score-circle">
+                        <span class="score-number" id="final-score">0</span>
+                        <span class="score-total">/ 20</span>
+                    </div>
+                    <div class="score-percentage" id="score-percentage">0%</div>
+                </div>
+
+                <div class="performance-message" id="performance-message">
+                    <!-- Performance message will be populated by JavaScript -->
+                </div>
+
+                <div class="score-breakdown">
+                    <div class="breakdown-item correct">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Correct: <span id="correct-count">0</span></span>
+                    </div>
+                    <div class="breakdown-item incorrect">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Incorrect: <span id="incorrect-count">0</span></span>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button id="review-btn" class="btn btn-secondary">
+                        <i class="fas fa-eye"></i> Review Answers
+                    </button>
+                    <button id="restart-btn" class="btn btn-primary">
+                        <i class="fas fa-redo"></i> Try Again
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Screen -->
+    <div id="review-screen" class="screen">
+        <div class="container">
+            <div class="review-header">
+                <h2><i class="fas fa-eye"></i> Review Your Answers</h2>
+                <button id="back-to-results" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Results
+                </button>
+            </div>
+            <div class="review-content" id="review-content">
+                <!-- Review content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="question-manager.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
