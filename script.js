@@ -574,12 +574,13 @@ class FirebaseAuth {
     initializeFirebase() {
         // Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyC7rZOQl_QD8VjxXQd8ZGLf9e8E4F5G6H7",
-            authDomain: "quiz-master-india.firebaseapp.com",
-            projectId: "quiz-master-india",
-            storageBucket: "quiz-master-india.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:a1b2c3d4e5f6g7h8i9j0k1"
+            apiKey: "AIzaSyBCjR-cUIjbJ5uGnoX3UN8r8luxHCU9VOU",
+            authDomain: "quiz-master-india-b9c9b.firebaseapp.com",
+            projectId: "quiz-master-india-b9c9b",
+            storageBucket: "quiz-master-india-b9c9b.firebasestorage.app",
+            messagingSenderId: "921781979213",
+            appId: "1:921781979213:web:a49c9e3337ee327022b404",
+            measurementId: "G-5X5DH76NMQ"
         };
 
         // Initialize Firebase
@@ -617,10 +618,10 @@ class FirebaseAuth {
             const provider = new firebase.auth.GoogleAuthProvider();
             provider.addScope('email');
             provider.addScope('profile');
-            
+
             const result = await this.auth.signInWithPopup(provider);
             console.log('User signed in:', result.user.displayName);
-            
+
             // Track login event
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'login', {
@@ -638,7 +639,7 @@ class FirebaseAuth {
         try {
             await this.auth.signOut();
             console.log('User signed out');
-            
+
             // Track logout event
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'logout', {
@@ -795,11 +796,11 @@ class FirebaseAuth {
         // Update dashboard elements
         document.getElementById('total-score').textContent = stats.totalScore || 0;
         document.getElementById('quizzes-completed').textContent = stats.quizzesCompleted || 0;
-        
-        const avgScore = stats.totalQuestions > 0 ? 
+
+        const avgScore = stats.totalQuestions > 0 ?
             Math.round((stats.totalScore / stats.totalQuestions) * 100) : 0;
         document.getElementById('average-score').textContent = `${avgScore}%`;
-        
+
         document.getElementById('current-streak').textContent = stats.quizzesCompleted || 0;
 
         // Update leaderboard score
@@ -810,7 +811,7 @@ class FirebaseAuth {
 
         // Update achievements
         this.displayAchievements(stats.achievements || []);
-        
+
         // Load and update leaderboard
         this.loadLeaderboard();
     }
@@ -957,7 +958,7 @@ class DemoAuth {
             authSection.style.display = 'none';
             userDashboard.style.display = 'block';
             userName.textContent = this.user.displayName;
-            
+
             // Show demo banner when user is logged in to demo mode
             if (demoBanner) {
                 demoBanner.style.display = 'block';
@@ -966,7 +967,7 @@ class DemoAuth {
             userInfo.style.display = 'none';
             authSection.style.display = 'block';
             userDashboard.style.display = 'none';
-            
+
             // Hide demo banner when not logged in
             if (demoBanner) {
                 demoBanner.style.display = 'none';
@@ -978,12 +979,12 @@ class DemoAuth {
         if (!this.user) return;
 
         const stats = this.getLocalStats();
-        
+
         // Update stats
         stats.totalScore += score;
         stats.quizzesCompleted += 1;
         stats.totalQuestions += totalQuestions;
-        
+
         if (!stats.topicsPlayed.includes(topic)) {
             stats.topicsPlayed.push(topic);
         }
@@ -1048,11 +1049,11 @@ class DemoAuth {
     updateLocalDashboard(stats) {
         document.getElementById('total-score').textContent = stats.totalScore || 0;
         document.getElementById('quizzes-completed').textContent = stats.quizzesCompleted || 0;
-        
-        const avgScore = stats.totalQuestions > 0 ? 
+
+        const avgScore = stats.totalQuestions > 0 ?
             Math.round((stats.totalScore / stats.totalQuestions) * 100) : 0;
         document.getElementById('average-score').textContent = `${avgScore}%`;
-        
+
         document.getElementById('current-streak').textContent = stats.quizzesCompleted || 0;
 
         const userLeaderboardScore = document.getElementById('user-leaderboard-score');
@@ -1102,9 +1103,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Enhance QuizMaster to work with Firebase
 const originalQuizMaster = window.QuizMaster || QuizMaster;
-QuizMaster.prototype.completeQuiz = function() {
+QuizMaster.prototype.completeQuiz = function () {
     this.showResults();
-    
+
     // Save to Firebase if user is logged in
     if (window.firebaseAuth && window.firebaseAuth.user) {
         window.firebaseAuth.saveQuizResult(
