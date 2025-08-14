@@ -15,7 +15,7 @@ class QuizMaster {
 
     initializeEventListeners() {
         // Topic selection
-        document.querySelectorAll('.topic-card').forEach(card => {
+        document.querySelectorAll('.subject-card').forEach(card => {
             card.addEventListener('click', (e) => {
                 const topic = e.currentTarget.dataset.topic;
                 console.log('Selected topic:', topic);
@@ -47,7 +47,7 @@ class QuizMaster {
 
     displayQuestionStats() {
         const stats = getTopicStats();
-        const topicCards = document.querySelectorAll('.topic-card');
+        const topicCards = document.querySelectorAll('.subject-card');
 
         topicCards.forEach(card => {
             const topic = card.dataset.topic;
@@ -436,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Add some fun animations
 document.addEventListener('DOMContentLoaded', () => {
     // Add floating animation to topic cards
-    const cards = document.querySelectorAll('.topic-card');
+    const cards = document.querySelectorAll('.subject-card');
     cards.forEach((card, index) => {
         card.style.animationDelay = `${index * 0.1}s`;
         card.classList.add('fade-in');
@@ -566,7 +566,7 @@ document.addEventListener('DOMContentLoaded', function () {
     trackPageLoad();
 
     // Add enhanced click tracking to topic cards
-    document.querySelectorAll('.topic-card').forEach(card => {
+    document.querySelectorAll('.subject-card').forEach(card => {
         card.addEventListener('click', function () {
             const topic = this.dataset.topic;
             trackQuizStart(topic);
@@ -737,7 +737,7 @@ class FirebaseAuth {
             });
 
             console.log('Quiz result saved to Firestore successfully');
-            
+
             // Update user stats
             await this.updateUserStats(topic, score, totalQuestions);
             console.log('User stats updated successfully');
@@ -778,7 +778,7 @@ class FirebaseAuth {
                 };
 
                 console.log('Updated stats:', stats);
-                
+
                 // Check for new achievements
                 await this.checkAchievements(stats);
             } else {
@@ -787,7 +787,7 @@ class FirebaseAuth {
 
             await userRef.set(stats, { merge: true });
             console.log('User stats saved to Firestore');
-            
+
             // Immediately update the dashboard
             this.updateDashboard(stats);
         } catch (error) {
