@@ -43,6 +43,14 @@ body {
     min-height: 70px;
 }
 
+/* Desktop-specific adjustments */
+@media (min-width: 769px) {
+    .nav-container {
+        min-height: 70px;
+        padding: 0 20px;
+    }
+}
+
 .nav-brand {
     display: flex;
     align-items: center;
@@ -158,6 +166,22 @@ body {
 .auth-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Mobile menu button */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    color: #4a5568;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: 10px;
+}
+
+.mobile-menu-btn:hover {
+    color: #667eea;
 }
 
 .auth-btn.logout {
@@ -835,19 +859,66 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-container {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
         min-height: auto;
-        padding: 15px 20px;
+        padding: 10px 20px;
+    }
+
+    .nav-brand {
+        flex: 1;
+    }
+
+    .brand-text h1 {
+        font-size: 1.2em;
+        margin: 0;
+    }
+
+    .brand-tagline {
+        font-size: 0.75em;
+    }
+
+    .brand-logo {
+        width: 35px;
+        height: 35px;
+        font-size: 1em;
     }
 
     .nav-links {
         display: none;
     }
 
+    .mobile-menu-btn {
+        display: block;
+        order: 2;
+    }
+
+    .nav-auth {
+        flex-shrink: 0;
+        order: 3;
+    }
+
+    .auth-btn {
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
+
+    .user-info {
+        gap: 8px;
+    }
+
+    .user-greeting {
+        display: none;
+        /* Hide greeting text on mobile */
+    }
+
     .hero-content {
         grid-template-columns: 1fr;
         gap: 40px;
         text-align: center;
+        padding-top: 20px;
+        /* Reduced top padding since navbar is smaller */
     }
 
     .hero-title {
@@ -886,6 +957,39 @@ body {
 @media (max-width: 480px) {
     .container {
         padding: 0 15px;
+    }
+
+    .nav-container {
+        padding: 8px 15px;
+    }
+
+    .brand-text h1 {
+        font-size: 1.1em;
+    }
+
+    .brand-tagline {
+        font-size: 0.7em;
+    }
+
+    .brand-logo {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9em;
+    }
+
+    .mobile-menu-btn {
+        font-size: 1em;
+        padding: 6px;
+        margin-left: 8px;
+    }
+
+    .auth-btn {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+
+    .auth-btn i {
+        margin-right: 4px;
     }
 
     .hero-title {

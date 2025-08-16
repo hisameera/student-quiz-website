@@ -1187,3 +1187,13 @@ function scrollToTop() {
         behavior: 'smooth'
     });
 }
+
+// Mobile menu toggle function
+function toggleMobileMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks.style.display === 'block') {
+        navLinks.style.display = 'none';
+    } else {
+        navLinks.style.display = 'block';
+    }
+}
