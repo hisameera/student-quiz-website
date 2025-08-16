@@ -870,13 +870,22 @@ body {
         flex: 1;
     }
 
+    .brand-text {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
     .brand-text h1 {
         font-size: 1.2em;
         margin: 0;
     }
 
     .brand-tagline {
-        font-size: 0.75em;
+        font-size: 0.7em;
+        color: #667eea;
+        font-weight: 500;
+        white-space: nowrap;
     }
 
     .brand-logo {
@@ -963,12 +972,16 @@ body {
         padding: 8px 15px;
     }
 
+    .brand-text {
+        gap: 6px;
+    }
+
     .brand-text h1 {
         font-size: 1.1em;
     }
 
     .brand-tagline {
-        font-size: 0.7em;
+        font-size: 0.65em;
     }
 
     .brand-logo {
